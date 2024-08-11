@@ -1,0 +1,6 @@
+{
+    "name": "@repo/test-pack",
+    "scripts": {
+        "test": "echo test-pack"
+    }
+}

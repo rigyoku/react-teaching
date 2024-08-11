@@ -1,0 +1,30 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["README.md"],
+  "globalEnv": ["name"],
+  "globalPassThroughEnv": ["liy"],
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!README.md"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "web#lint": {
+
+    },
+    "test": {
+      "persistent": true
+    },
+    "test2": {
+      "dependsOn": ["test"],
+      "outputLogs": "new-only"
+    }
+  }
+}
