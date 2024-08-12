@@ -1,0 +1,7 @@
+{
+    "name": "@repo/state-pack",
+    "exports": {
+        "./state": "./src/state.tsx",
+        "./reducer": "./src/reducer.tsx"
+    }
+}
