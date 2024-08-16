@@ -10,6 +10,7 @@
     "test": "echo web; read input; echo $input"
   },
   "dependencies": {
+    "@repo/context-pack": "*",
     "@repo/state-pack": "*",
     "@repo/test-pack": "*",
     "@repo/ui": "*",
