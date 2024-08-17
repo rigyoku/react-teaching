@@ -1,0 +1,9 @@
+{
+    "name": "@repo/effect-pack",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0"
+    },
+    "dependencies": {
+        "@types/eslint": "^8.56.5"
+    }
+}

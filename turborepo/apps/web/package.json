@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@repo/context-pack": "*",
+    "@repo/effect-pack": "*",
     "@repo/state-pack": "*",
     "@repo/test-pack": "*",
     "@repo/ui": "*",

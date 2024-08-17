@@ -18,11 +18,11 @@
     * setState可以直接写新状态, 也可以写函数接受当前状态返回新状态
         * 更新状态是放入队列然后异步更新, 直接取拿不到最新值, 可以在setState的函数参数的参数里拿到
             * 尽可能不用flushSync
-        * 新旧状态一致(Object.is)时不会重新渲染 ~~比较引用,所以push数组再返回原数组无效~~
-    * 渲染阶段(顶层代码)只能 ***有条件的*** 调用当前组件setState, 不能调用其他组件setState ~~避免死循环,避免产生副作用~~
+        * 新旧状态一致(Object.is)时不会重新渲染
+    * 渲染阶段(顶层代码)只能 ***有条件的*** 调用当前组件setState, 不能调用其他组件setState
     * 定义时候规范
-        * 尽可能少的状态数量 ~~相关的状态合并成一个, 能从其他状态计算得出(拼接,筛选)就不要单独定义, 防止改漏了~~
-        * 尽可能浅的状态结构 ~~过深将导致更新state要写很多的...,扁平化~~
+        * 尽可能少的状态数量
+        * 尽可能浅的状态结构
 * useReducer(状态管理的聚合)
     * 参数
         * 参数1: 是一个方法, 方法参数是(当前)state和action, 根据action来更新state并返回更新后的state
@@ -30,15 +30,57 @@
         * 参数3: 可选参数, 有值则作为参数2方法的参数计算初始值
     * 返回当前状态和更新状态的方法(dispatch)的数组, 常用解构取值
         * dispatch用于触发参数1的方法, 传入action
-    * 特性和setState一致, 注意不要写异步请求 ~~渲染时执行,需要是纯函数~~
+    * 特性和setState一致, 注意不要写异步请求
     * 针对于state的改修逻辑很多时才建议使用reducer, 逻辑分离单独调试会更方便
-    * [use-immer库](https://github.com/immerjs/use-immer): 对useState的包装, 封装了对象的变更操作 ~~屏蔽了数据不可变性,容易带坏小朋友~~
+    * [use-immer库](https://github.com/immerjs/use-immer): 对useState的包装, 封装了对象的变更操作
 * useOptimistic(乐观更新UI)
     * 乐观就是先把ui给更新了, 但是异步操作没结束(db还没插进去)呢, 等异步结束之后再更新ui
-        * 乐观更新适用于成功率极高, 可以撤回的场合 ~~抢票就不行,先提示成功,再出失败就气死了~~
+        * 乐观更新适用于成功率极高, 可以撤回的场合
     * 参数
         * 参数1: 初始值
         * 参数2: 是一个方法, 方法参数是(当前)state和待更新的值, 返回乐观state(临时副本)
             * 注意是临时副本, 原state并未变化, 所以是可撤回的, 同时异步操作正确结束时也可以更新正确的值
     * 返回临时副本和更新状态的方法(addOptimistic)
         * addOptimistic的参数就是参数2的待更新的值
+
+### 上下文
+* useContext(数据共享)
+    * createContext: 创建上下文, 参数提供默认值
+    * useContext: 参数传入context, 返回(最近的父级provider)值
+    * context.provider: 覆盖默认值, 可以多层覆盖(包括多provider)
+    * 下层修改数据: 虽然setState也可以, 常用dispatch
+    * 使用事项
+        * 传值方式适合场景
+            * 短传递用props
+            * 单个孙子层使用的话用children参数
+            * 多层都要使用, 使用的值可以切换的时候用context
+        * 按照业务拆分context, 管理和使用更方便, 使用时再拼接成对应业务的provider组件
+        * 使用memo缓存中间层, 不会影响孙子拿到最新context重新渲染
+
+### 副作用
+* useEffect
+    * 副作用: 除了本身要做的事, 还产生了额外的效果
+    * 参数1为依赖发生变化时(Object.is)要触发的函数, 参数2为依赖数组
+        * 参数1
+            * 渲染后执行
+            * 不能是异步的
+            * 使用的外部变量要添加依赖, 配置了lint的话会提示
+                * eslint-plugin-react-hooks
+                * 用函数式setState隐藏state依赖
+            * 返回值为函数, 在组件卸载时触发
+                * 刷新时, 先执行返回函数, 再执行参数1
+                * 清理计时器, abort请求, 移除事件监听
+        * 参数2
+            * 不传时, 每次渲染都会触发
+            * 传递空数组时, 只有初始化会执行
+            * 数组有值, 内容变化时触发
+    * 常用于初始化时候发请求, 操作dom
+        * 真正唯一的操作应该放在文件头上
+* useLayoutEffect
+    * 重绘前触发的useEffect, 会影响性能
+        * 虽然重新渲染, 但是用户看不出来
+        * 依赖渲染出来的内容更新ui时才会用到
+* useInsertionEffect
+    * 为了在dom上添加style标签导入css
+    * 参数和useEffect相同, 执行顺序为 useInsertionEffect > useLayoutEffect > useEffect
+    * refs无效, setup/cleanup同时触发
