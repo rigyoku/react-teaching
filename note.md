@@ -84,3 +84,21 @@
     * 为了在dom上添加style标签导入css
     * 参数和useEffect相同, 执行顺序为 useInsertionEffect > useLayoutEffect > useEffect
     * refs无效, setup/cleanup同时触发
+
+### ref
+* useRef
+    * 用于保存不需要渲染的值
+        * 相较于普通局部变量, 渲染不会重置
+        * 相较于state, 不会影响页面渲染
+        * 相较于全局变量, 每个组件独立
+    * 参数是初始值, 返回的对象永远不变, 只会变更current
+        * 渲染期间不要用ref的current
+    * 为dom的ref属性赋值, 可以通过current拿到dom
+        * ref属性可以接收函数参数, 手动保存dom
+        * 可以上层创建ref, forwardRef传递给子组件的dom
+            * 基本组件才可以这么做, 复杂组件别做, 不然行为不好预测
+* useImperativeHandle
+    * 配合forwardRef
+        * 不再直接把ref放入dom, 避免暴露整个dom, 而是暴露自定义的方法
+    * 参数1是ref, 参数2是方法, 参数3是参数2方法的依赖数组
+        * 参数2的方法无参, 返回值作为ref的current
