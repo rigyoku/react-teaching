@@ -58,14 +58,14 @@
         * 使用memo缓存中间层, 不会影响孙子拿到最新context重新渲染
 
 ### 副作用
-* useEffect
+* useEffect(模拟生命周期)
     * 副作用: 除了本身要做的事, 还产生了额外的效果
     * 参数1为依赖发生变化时(Object.is)要触发的函数, 参数2为依赖数组
         * 参数1
             * 渲染后执行
             * 不能是异步的
             * 使用的外部变量要添加依赖, 配置了lint的话会提示
-                * eslint-plugin-react-hooks
+                * [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks-rc)
                 * 用函数式setState隐藏state依赖
             * 返回值为函数, 在组件卸载时触发
                 * 刷新时, 先执行返回函数, 再执行参数1
@@ -76,17 +76,17 @@
             * 数组有值, 内容变化时触发
     * 常用于初始化时候发请求, 操作dom
         * 真正唯一的操作应该放在文件头上
-* useLayoutEffect
+* useLayoutEffect(不可见的渲染)
     * 重绘前触发的useEffect, 会影响性能
         * 虽然重新渲染, 但是用户看不出来
         * 依赖渲染出来的内容更新ui时才会用到
-* useInsertionEffect
+* useInsertionEffect(css-in-js)
     * 为了在dom上添加style标签导入css
     * 参数和useEffect相同, 执行顺序为 useInsertionEffect > useLayoutEffect > useEffect
     * refs无效, setup/cleanup同时触发
 
 ### ref
-* useRef
+* useRef(保存不用于渲染的值)
     * 用于保存不需要渲染的值
         * 相较于普通局部变量, 渲染不会重置
         * 相较于state, 不会影响页面渲染
@@ -97,8 +97,32 @@
         * ref属性可以接收函数参数, 手动保存dom
         * 可以上层创建ref, forwardRef传递给子组件的dom
             * 基本组件才可以这么做, 复杂组件别做, 不然行为不好预测
-* useImperativeHandle
+* useImperativeHandle(子组件为ref.current赋值)
     * 配合forwardRef
         * 不再直接把ref放入dom, 避免暴露整个dom, 而是暴露自定义的方法
     * 参数1是ref, 参数2是方法, 参数3是参数2方法的依赖数组
         * 参数2的方法无参, 返回值作为ref的current
+
+### 性能
+* useMemo(缓存结果)
+    * 参数1是无参函数, 参数2是依赖数组
+    * 返回参数1计算后的值, 依赖不变则返回值不变
+    * 使用场景: 计算量极大, 配合memo, 自定义hook, 或者作为别人的依赖
+* useCallback(缓存函数)
+    * 参数1是要缓存的函数, 参数2是依赖数组
+    * 返回一个函数, 用于保证渲染时, 依赖不变则函数不变, 不然每次都是一个新的
+    * 使用场景: 配合memo, 自定义hook, 或者作为别人的依赖
+* useDeferredValue(包装state)
+    * 参数1是要延迟更新的变量, 参数2是可选的初始值
+    * 使用该值的ui更新会变成非阻塞的, 配合memo降低卡顿
+        * 后台渲染, 所以非阻塞
+            * 后台渲染过程中更新值, 会放弃这次渲染来使用新值计算
+            * 放弃的后台渲染不会触发effect
+        * 新ui出现时间取决于react渲染速度, 也就是机器性能
+    * 只是ui层面的节流, 不能减少网络请求次数
+* useTransition(包装setState)
+    * 没有参数, 返回数组, 第一项是状态是否更新完, 第二项是一个函数startTransition
+    * startTransition参数是无参方法
+        * 参数方法会立即执行
+        * 参数必须直接调用setState
+    * transition过程中被其他地方setState, 会跳过transition直接渲染state
