@@ -126,3 +126,25 @@
         * 参数方法会立即执行
         * 参数必须直接调用setState
     * transition过程中被其他地方setState, 会跳过transition直接渲染state
+
+### 不常用+自定义
+* useId(唯一id)
+    * 无参, 返回一个唯一的id
+        * 重新渲染不影响id的值
+        * 调用多次返回不同id
+    * 组件内使用可以自己拼字符串, 相较于多次useId可读性更高一点
+* 自定义hook
+    * 遵守hook规则, 封装状态和逻辑
+        * 和共通方法对比, 维护了状态用于更新ui
+        * 和组件对比, 可以暴露修改状态的方法
+* useDebugValue(debug)
+    * 自定义hook时, 在tool里显示值
+    * 参数1是要显示的值, 参数2是对参数1的格式化方法
+* useSyncExternalStore(使用外部状态)
+    * 自定义hook时, 取得外部状态
+        * react内部的状态用state, 外部的状态使用该hook, 比如其他库, 浏览器api
+    * 参数1是一个方法, 接收callback并在状态变更时调用, 参数2取得数据的方法, 参数3是服务端数据初始值
+    * 返回值是当前状态
+* useActionState(form+state)
+    * 参数1是一个方法, 接收上次state和表单数据并返回最新state, 参数2是初始化state, 参数3是url
+    * 返回值是数组, 第一项是state, 第二项是formAction
