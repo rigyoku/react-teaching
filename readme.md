@@ -2,7 +2,8 @@
 * 对应课程请切换对应分支查看
 * note文件为课程笔记
 * turborepo文件夹为课程代码
-* video文件夹为课程视频
+* ~~video文件夹为课程视频~~
+    * 视频太大github放不下了, 直接发文件吧
 
 ## 课程目录
 
@@ -13,7 +14,15 @@
 * next.config: next的常用配置项
 
 
-
+### [02](https://github.com/rigyoku/react-teaching/tree/02)
+* hook01: hook规则, useState
+* hook02: useReducer, useOptimistic
+* hook03: useContext
+* hook04: useEffect, useLayoutEffect, useInsertionEffect
+* hook05: useRef, useImperativeHandle
+* hook06: useMemo, useCallback, useDeferredValue, useTransition
+* hook07: 自定义hook, useId, useDebugValue, useSyncExternalStore, useActionState
+* rule:  一些开发规范
 
 
 ## 评估方式
