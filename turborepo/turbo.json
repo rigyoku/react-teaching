@@ -25,6 +25,9 @@
     "test2": {
       "dependsOn": ["test"],
       "outputLogs": "new-only"
+    },
+    "web#start": {
+      "dependsOn": ["web#build"]
     }
   }
 }

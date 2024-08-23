@@ -1,21 +1,31 @@
-'use client';
+// 'use client';
 
 import Image from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
-import { log } from "@repo/test-pack/src/test";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
+// import { log } from "@repo/test-pack/src/test";
+// import { useEffect } from "react";
 
 
 export default function Home() {
-  log();
-  useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_NAME)
-    console.log(process.env.NEXT_PUBLIC_NAME2)
-  }, []);
+
+  // try {
+  //   redirect('/aaaa')
+  // } catch (error) {
+  //   console.log(`error : ${error}`)
+  // }
+  redirect('/aaaa')
+
+  // log();
+  // useEffect(() => {
+  //   console.log(process.env.NEXT_PUBLIC_NAME)
+  //   console.log(process.env.NEXT_PUBLIC_NAME2)
+  // }, []);
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
+      123
+      {/* <main className={styles.main}>
         <Image
           className={styles.logo}
           src="/next.svg"
@@ -103,7 +113,7 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }
