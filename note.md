@@ -44,3 +44,36 @@
 * redirect
     * 服务端使用, 参数为重定向的url, 类型可以为replace/push
     * 不能放try里
+## 共享UI
+* laytout
+    * 切换路由时, layout会进行保留, 不会重新渲染
+        * Link组件会保留, 通过a标签切不行
+        * 直接使用usePathname会重新渲染, 可以单独起一个客户端组件去做然后引入layout
+    * 也是函数组件, 接收children
+    * 根布局必须存在, 且包含html和body元素
+        * 默认的根布局还提供了metadata配置
+            * 其他layout也可以改metadata
+        * 且只有根路由能有html和body元素
+    * 拿不到searchParams
+* template
+    * 切换路由时, template会新建
+        * 所以可以用于重置状态
+    * 也是函数组件, 接收children
+        * 在layout和page之间
+    * 拿不到searchParams, 可以拿到usePathname
+## 加载效果
+* 路由级别
+    * loading
+        * 在template和page之间
+* 组件级别
+    * 通过Suspense动态加载, 通过fallback配置loading效果
+## 错误页
+* error
+    * 用于处理意外的错误, 必须是客户端组件
+    * 可以接受error和reset参数
+        * 打包后拿不到完整error
+        * reset用于重新渲染
+    * 可以多层处理, 从下向上处理
+## 404
+* not-found
+    * app目录下的全局拦截

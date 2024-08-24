@@ -1,0 +1,1 @@
+export default () => <div>router loading...</div>
