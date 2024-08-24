@@ -77,3 +77,20 @@
 ## 404
 * not-found
     * app目录下的全局拦截
+## 路由组
+* 把一组路由放在一个文件夹下归类, 这个文件夹不会出现在url中
+* 小括号括起来
+    * 不同的组可以有不同的layout
+    * 组下面的page不能导致路由冲突
+* 可以嵌套
+## 动态路由
+* 中括号括起来
+* 文件夹名就是key, 通过props.params.key取值
+* layout和page能拿到, template拿不到
+* generateStaticParams
+    * 暴露该方法, 返回params数组, 这样就会在build阶段做缓存
+    * 暴露dynamicParams为false可以禁用未定义的参数, 返回404
+* 支持多级嵌套
+* 支持扩展运算符
+    * 多层只能写在最后
+    * 可以用双中括号加扩展运算符表示可选参数

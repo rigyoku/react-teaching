@@ -1,0 +1,1 @@
+export default () => <div>route1</div>
