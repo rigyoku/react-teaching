@@ -1,0 +1,1 @@
+export default () => <div>r4 p1 Page</div>

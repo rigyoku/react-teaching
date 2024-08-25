@@ -1,0 +1,1 @@
+export default () => <div>p2 p3 default</div>

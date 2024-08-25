@@ -14,7 +14,7 @@ export const dynamicParams = false;
 
 export default ({ params }: { params: { id: string } }) => {
     console.log(`render ${params.id}`);
-    <div>
+    return <div>
         {
             `id : ${params.id}`
         }
