@@ -95,7 +95,7 @@
     * 多层只能写在最后
     * 可以用双中括号加扩展运算符表示可选参数
 ## 平行路由
-* layout里显示多个内容 ~~具名插槽~~
+* layout里显示多个内容
     * 如果有template, 每个page都会带上
 * @开头的文件夹
     * 可以写layout
@@ -113,3 +113,36 @@
     * 不是按文件夹算, 是按照实际路由算
     * ...是app目录
     * 可以嵌套
+## api
+* route
+    * 一般放在api下, ts/js
+        * 不放也行, tsx也行
+        * 但是不能和page同级
+    * 暴露 POST(create)/GET(read)/PUT(update)/PATH(delete)
+        * 也支持 PATH(局部更新)/HEAD(没body)/OPTIONS(查询支持的方法)
+        * 不能返回default
+    * 可以从参数拿到请求数据(header,cookie,fordata之类), 返回NextResponse对象
+        * 表单数据为异步, 配合post请求
+        * req.nextUrl.searchParams.get('key')获取参数
+        * 暴露dynamic为force-static会导致拿不到参数
+        * 返回值也可以写code和header
+    * 可以配合路由组,动态路由
+        * 获取params
+    * 可以重定向
+## 中间件
+* middleware
+    * 根目录下的全局拦截(注意不是app目录), 在匹配到page前进行处理
+    * 一些拦截处理, 比如认证,log,响应处理等轻任务
+    * 暴露middleware方法写处理逻辑, 暴露config用于指定配置
+        * middleware方法:
+            * 接收request参数
+                * 由于全局唯一, 不同的路由逻辑自己写判断去做路径匹配
+                * 通过NextResponse.next额外处理并放行请求, 或者直接响应请求, 或者重定向
+                    * 重定向用NextResponse.redirect, 且不能是相对路径, 可以在url上clone去改pathname
+        * config.matcher: 哪些路由要进入处理逻辑
+            * 可以是字符串, 数组, 使用has/missing逻辑的对象, 正则
+            * 不配就是全局有效
+    * 只支持Edge的运行时, 某些api不好用(比如eval)
+## 国际化
+* 不同语言做到不同的动态路由下
+* 中间件自动重定向
