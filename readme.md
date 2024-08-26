@@ -24,6 +24,13 @@
 * hook07: 自定义hook, useId, useDebugValue, useSyncExternalStore, useActionState
 * rule:  一些开发规范
 
+### [03](https://github.com/rigyoku/react-teaching/tree/03)
+* router01: 页面,切换路由
+* router02: 共享ui,加载效果,错误页,404
+* router03: 路由组,动态路由
+* router04: 平行路由,拦截路由
+* router05: api,中间件,国际化
+
 
 ## 评估方式
 * TODO
