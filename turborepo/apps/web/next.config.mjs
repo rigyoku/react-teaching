@@ -51,7 +51,8 @@ const nextConfig = {
     experimental: {
         serverActions: {
             bodySizeLimit: '2mb',
-        }
+        },
+        taint: true,
     }
 };
 
