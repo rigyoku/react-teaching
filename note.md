@@ -99,3 +99,34 @@
     * [react-query](https://tanstack.com/query/latest/docs/framework/react/installation)
         * 和swr差不多, 也是key+fetcher+options形式的hook
             * 外面的provider是必须的
+
+## server action
+```
+把react/next相关版本再升级回来
+```
+* 运行在服务端的函数
+    * 和普通函数区别在于, 运行在服务端, 调用在客户端
+        * 类似api, 但是并不是以url形式调用, 而是直接传递
+        * 也要注意认证过期问题
+            * 过期了做重定向或者抛error的处理
+                * 事件/副作用调用会被catch, form的action会进入error页
+    * 使用方式
+        * 直接import或者传入
+        * 传入form的action,响应事件或者副作用
+            * 本质是网络请求, 返回promise
+        * 服务端组件非export声明时, 如果传递给form, 函数内不能省略use server
+            * 即使文件级别声明了use server
+        * hidden可以传一些额外参数
+            * disabled不会提交
+        * 默认post提交, 不会切换路由
+            * 会重新build
+    * form
+        * 直接传到action没法做处理loading和返回值
+            * post过程state不会更新到ui
+                * 配合useOptimistic处理loading
+                * 配合useActionState处理loading
+        * action想额外加参数还可以用bind
+            * 不能把方法作为参数
+        * 除了submit提交
+            * button的formAction属性也可以提交触发action
+            * 通过dom.form.requestSubmit提交也能触发action
