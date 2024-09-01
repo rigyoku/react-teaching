@@ -8,7 +8,7 @@ export default () => {
         <br />
         {data.name}
         <br />
-        <Client name={data.name} />
+        {/* <Client name={data.name} /> */}
 
         {/* <Client name={data.name} obj={data} /> */}
     </div>

@@ -8,6 +8,6 @@ const data = {
 
 // experimental_taintObjectReference('taint data msg', data);
 
-experimental_taintUniqueValue('taint name msg', data, data.name);
+// experimental_taintUniqueValue('taint name msg', data, data.name);
 
 export default data;

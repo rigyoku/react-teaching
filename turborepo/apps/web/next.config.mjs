@@ -53,6 +53,14 @@ const nextConfig = {
             bodySizeLimit: '2mb',
         },
         taint: true,
+    },
+    async rewrites() {
+        return [
+            {
+                'source': '/docs/api/:path*',
+                'destination': 'http://localhost:3001/api/:path*'
+            }
+        ]
     }
 };
 
