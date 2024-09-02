@@ -31,6 +31,12 @@
 * router04(30m05s): 平行路由,拦截路由
 * router05(42m16s): api,中间件,国际化
 
+### [04](https://github.com/rigyoku/react-teaching/tree/04) (124m43s)
+* data01(39m26s): 取api/db, 预构建, 预加载, 数据安全
+* data02(27m30s): swr基础使用
+* data03(29m07s): swr配置, react-query简介
+* data04(28m40s): ServerAction, form
+
 
 ## 评估方式
 * 按照需求完成开发, 并提交成果物, 根据完成情况进行评价
