@@ -1,0 +1,1 @@
+export default () => <p style={{ height: '20vh', width: '20vw' }}>b1</p>
