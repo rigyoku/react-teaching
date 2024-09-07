@@ -10,7 +10,15 @@ export const GET = async (req: NextRequest) => {
     if (time) {
         await new Promise((res) => setTimeout(() => res(null), parseInt(time) * 1000));
         bool = !bool;
-        return NextResponse.json(parseInt(time) * (bool ? 1 : -1));
+        return NextResponse.json(parseInt(time) * (bool ? 1 : -1), {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        });
     }
-    return NextResponse.json(name);
+    return NextResponse.json(name, {
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
+    });
 }
