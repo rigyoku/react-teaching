@@ -23,4 +23,28 @@
         * 操作history不会清缓存
 
 ## next fetch
-* 
+
+### 请求层(next-fetch)
+* 服务器组件渲染期间, 针对请求的缓存
+    * 参数一致则不会再发出fetch请求
+    * 可以传递signal来禁用
+    * dev环境初次取值可以看出请求缓存的效果
+* 源码解析
+    * 被patch-fetch包装
+    * 将fetch属性添加到cachedFetch上, 并赋值给fetch
+    * cachedFetch
+        * 配置了 *signal* 直接走普通fetch
+        * 根据配置生成缓存key
+            * 指定url且配置为空(即get请求), 固定字符串的缓存key
+            * 不是get和head, 或者keepalive的请求, 直接走普通fetch
+            * 否则根据配置项生成缓存key
+        * 取缓存
+            * 根据url取react.cache, 取不出来走普通fetch, 并把fetch的promise记录到缓存中
+            * 通过key没取到缓存, 走普通fetch, 并把fetch的promise记录到缓存中
+            * 有缓存则直接使用缓存的value来注册then回调并返回
+            * clone一个response, 因为默认只能读一次
+            ```js
+            a = await fetch('https://exam.dlufl.edu.cn/info/1056/1700.htm')
+            a.body.values()
+            ```
+    * dev只有初次进入next-fetch, 后续就会走process/pre_execution, 所以后续看不到缓存效果
