@@ -37,6 +37,12 @@
 * data03(29m07s): swr配置, react-query简介
 * data04(28m40s): ServerAction, form
 
+### [05](https://github.com/rigyoku/react-teaching/tree/05) (90m7s)
+* cache01(27m44s): react的cache方法
+* cache02(19m04s): 请求层缓存原理
+* cache03(25m27s): 数据层缓存
+* cache04(17m52s): 路由层缓存, Next渲染模式
+
 
 ## 评估方式
 * 按照需求完成开发, 并提交成果物, 根据完成情况进行评价
