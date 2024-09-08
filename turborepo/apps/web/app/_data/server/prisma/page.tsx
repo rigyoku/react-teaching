@@ -9,7 +9,7 @@ export default async () => {
     const res = await prisma.people.findMany();
     return <div>
         {
-            res.map(item => (<div key={item.id}>
+            res.map((item: any) => (<div key={item.id}>
                 name:{item.name}
                 <br />
                 age:{item.age}
