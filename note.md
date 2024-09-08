@@ -48,3 +48,47 @@
             a.body.values()
             ```
     * dev只有初次进入next-fetch, 后续就会走process/pre_execution, 所以后续看不到缓存效果
+
+### 数据层(store)
+* 针对数据缓存
+    * 可以理解为服务端的swr
+        * 如果有缓存, 先显示缓存, 不显示Suspense
+        * 缓存过期时, 下次访问时在后台取新数据, 成功后缓存更新为新数据
+            * 触发重验证的那次请求, 看不到最新值
+    * build(静态)和访问期间(动态)都能触发
+    * 配置项
+        * cache: 默认开启缓存, 设置no-store会禁用
+        * next:
+            * revalidate: 数据有效期
+                * 单位是秒
+                * false永不过期
+                * 动态路由不设置相当于0
+            * tags: 用于清除缓存的key
+    * 手动清除缓存
+        * revalidatePath 路由级别缓存全部清除
+            * 包括该路由上面的layout/template
+        * revalidateTag 单个请求级别
+            * 传入任意tag都可以
+        * 触发api需要手动刷新(f5/router.refresh), action自动刷新
+        * 只能在serverAction/api里执行
+    * 非fetch的方法可以用unstable_cache包裹
+
+### 缓存小节
+* 路由级别也可以配revalidate, 影响page的重构
+    * 不会影响fetch的缓存
+* 客户端级别有layout的和history的缓存, 以及preload
+* 使用不频繁的页面, 可以把Link的prefetch禁用
+* 在服务端组件中
+    * 方法的缓存: react.cache/unstable_cache
+    * 利用请求级别缓存, 在父组件异步发起子组件的请求做预加载加速渲染
+    * 对于数据几乎不变的页面, 直接做成静态的在build时预渲染, 动态路由通过提前指定参数的形式也在build阶段优化
+    * 比如db的数据每天有batch来更新, 可以把这些数据的查询利用数据缓存做控制, 平时使用缓存, 在batch结束后触发一个api来清缓存数据做同步
+    * 时效性要求不高的场合, 比如查看数据走势, 设置数据有效期, 减少频繁分析的性能损耗
+    * 做数据修改的form, 对应action清缓存更新页面数据
+
+## Next的渲染模式
+* 静态渲染: 无动态内容 / force-static
+    * 会先生成一版html, 在.next/server/app下
+* SSG: 动态路由的静态参数
+    * 根据参数生成对应html
+* 动态渲染: 使用运行时数据 / unstable_noStore / force-dynamic / revalidate = 0
