@@ -53,6 +53,7 @@ const nextConfig = {
             bodySizeLimit: '2mb',
         },
         taint: true,
+        ppr: 'incremental',
     },
     async rewrites() {
         return [
