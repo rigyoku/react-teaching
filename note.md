@@ -30,3 +30,17 @@
     * 服务端fetch
     * 客户端swr/context
 
+## auth
+* 登陆表单
+    * 复习一下serverAction/useActionState/抽hook/memo
+    * 离程序核心越远拦截越好
+* 认证处理
+    * 可以把用户信息存db里, 然后把加密后的key返回给浏览器
+        * redis 高效+时效性 / Bloom Filter 提高验证效率
+        * cookie 自动携带, 浏览器有大小限制
+        * jwt 跨域+时效性, 需要自己带
+    * 再次访问时进行校验
+        * 中间件
+        * 组件内根据用户权限做不同处理
+            * 组件间共享缓存
+        * serveraction/api也可以做校验

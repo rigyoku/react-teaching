@@ -12,7 +12,7 @@ const _context = createContext({
 export const useName = () => useContext(_context);
 
 export const NameProvider = ({ children }: { children: ReactNode }) => {
-    const [name, setName] = useState(defaultName)
+    const [name, setName] = useState(defaultName);
     return <_context.Provider value={{ name, setName }}>
         {children}
     </_context.Provider>
