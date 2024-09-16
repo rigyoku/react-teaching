@@ -21,7 +21,8 @@
   "packageManager": "npm@10.2.4",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "react18/*"
   ],
   "dependencies": {
     "jsonwebtoken": "^9.0.2"

@@ -44,3 +44,18 @@
         * 组件内根据用户权限做不同处理
             * 组件间共享缓存
         * serveraction/api也可以做校验
+
+## [next auth](https://authjs.dev/getting-started/installation)
+* 集成3方登陆
+    * 新建一个文件夹, 配置package
+        * 和turbo(react19/next15)兼容性并不好, 一大堆bug
+    * npx auth secret创建env
+    * 初始化NextAuth, 配置对应provider
+    * 创建route处理登陆页
+        * ts的路径别名
+    * 验证处理
+    * 创建signin/signout入口
+        * 重定向参数
+    * 服务端/客户端/中间件处理
+        * src
+    * 会自动刷过期时间
