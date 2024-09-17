@@ -43,13 +43,21 @@
 * cache03(25m27s): 数据层缓存
 * cache04(17m52s): 路由层缓存, Next渲染模式
 
+### [06](https://github.com/rigyoku/react-teaching/tree/06) (124m38s)
+* render(24m49s): ppr模式, 服务端和客户端组件
+* auth01(38m47s): 应用前面知识点做登陆form和认证处理
+* auth02(24m28s): next-auth插件集成github
+* append(36m34s): 额外补充一下遗漏的点和最近遇到的代码上的一些问题
 
 ## 评估方式
 * 按照需求完成开发, 并提交成果物, 根据完成情况进行评价
 
-### [中期评价](https://github.com/rigyoku/react-teaching/tree/evaluate01)
+### [期中评价](https://github.com/rigyoku/react-teaching/tree/evaluate01)
 * 包含文本和视频形式的需求描述
     * evaluate.mov(10m57s) 由飞书共享
     * evaluate.md 文本需求描述
 * 视频中展示的内容的相关代码会在大家都上交成果物后提交到该分支
     * evaluate文件夹
+
+### [期末评价](https://github.com/rigyoku/react-teaching/tree/evaluate02)
+* TODO
