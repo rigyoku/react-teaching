@@ -59,3 +59,25 @@
     * 服务端/客户端/中间件处理
         * src
     * 会自动刷过期时间
+
+## 收尾补充
+* lint
+    * 代码格式(换行,空格,符号,对齐)
+    * 未使用的变量
+        * 引用
+        * 接收的返回值
+* ts
+    * 类型尽量清楚写出出来, 避免any和as
+    * 类型生成
+    * 类型采用大写
+* js
+    * 额外的方法包装
+    * 三元 || ??
+    * return undefined
+    * 解构取值
+* 框架
+    * 逻辑抽到hook, 组件只负责渲染
+    * effect
+    * react19 use / context
+    * swr.useSWRMutation
+    * next out
