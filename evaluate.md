@@ -11,7 +11,7 @@
 ## 需求描述
 
 ### 工程
-* turbo初始化工程(演示中的版本是 next: 15.0.0-canary.111 / react: 19.0.0-rc-187dd6a7-20240806)
+* turbo初始化工程(演示中的版本是 next: 15.0.0-canary.161 / react: 19.0.0-rc-e740d4b1-20240919)
 * 主体代码放在的demo/view目录下(自己创建), 使用app router
 * 依赖只安装在demo/view下
 * turbo下执行npm run dev会单独启动view工程(不能用#定义task,不能删其他的dev命令), 使用8080端口
