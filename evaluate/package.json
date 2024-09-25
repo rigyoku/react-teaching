@@ -1,0 +1,25 @@
+{
+  "name": "evaluate",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev  --filter=view",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "start": "turbo view#start"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.1.2",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@10.2.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "demo/*"
+  ]
+}

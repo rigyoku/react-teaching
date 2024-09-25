@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.view-border {
+    @apply border-solid border-stone-950 border-2 rounded-md
+}

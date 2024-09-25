@@ -1,0 +1,27 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:3306/demo_view"
+}
+
+model user {
+  id       Int     @id @default(autoincrement())
+  username String  @db.VarChar(45)
+  password String? @db.VarChar(45)
+}
+
+model user_setting {
+  id      Int     @id @default(autoincrement())
+  user_id Int
+  theme   String? @db.VarChar(45)
+}
+
+model user_items {
+  id      Int     @id @default(autoincrement())
+  user_id Int
+  name    String? @db.VarChar(45)
+}
